@@ -1,4 +1,4 @@
-RISK OF GETTING BANNED, I RECOMMEND YOU USE THE ESP ONLY
+-- RISK OF GETTING BANNED, I RECOMMEND YOU USE THE ESP ONLY
 local Players = game:GetService("Players")
 local Workspace = game:GetService("Workspace")
 local RunService = game:GetService("RunService")
