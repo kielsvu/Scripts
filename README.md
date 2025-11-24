@@ -7,4 +7,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/kielsvu/Scripts/refs/
 ```lua
 loadstring(game:HttpsGet("https://raw.githubusercontent.com/kielsvu/Scripts/refs/heads/main/ParkourLegacyTPBags.lua"))()
 ```
-
+- **Build A Boat For Treasure**
+```lua
+loadstring(game:HttpsGet("https://raw.githubusercontent.com/kielsvu/Scripts/refs/heads/main/BuildABoatForTreasure.Lua"))()
+```
