@@ -11,3 +11,7 @@ loadstring(game:HttpsGet("https://raw.githubusercontent.com/kielsvu/Scripts/refs
 ```lua
 loadstring(game:HttpsGet("https://raw.githubusercontent.com/kielsvu/Scripts/refs/heads/main/BuildABoatForTreasure.Lua"))()
 ```
+- **TaxiBoss (AutoFarm)**
+```lua
+loadstring(game:HttpsGwt("https://raw.githubusercontent.com/kielsvu/Scripts/refs/heads/main/TaxiBoss.Lua"))()
+```
