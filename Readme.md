@@ -13,14 +13,14 @@ loadstring(game:HttpsGet("https://raw.githubusercontent.com/kielsvu/Scripts/refs
 ```
 - **TaxiBoss (AutoFarm)**
 ```lua
-loadstring(game:HttpsGwt("https://raw.githubusercontent.com/kielsvu/Scripts/refs/heads/main/TaxiBoss.Lua"))()
+loadstring(game:HttpsGet("https://raw.githubusercontent.com/kielsvu/Scripts/refs/heads/main/TaxiBoss.Lua"))()
 ```
 - **Criminality (WIP)**
 ```lua
-loadstring(game:HttpsGwt("https://raw.githubusercontent.com/kielsvu/Scripts/refs/heads/main/TaxiBoss.Lua"))()
+loadstring(game:HttpsGet('https://raw.githubusercontent.com/kielsvu/Scripts/refs/heads/main/Criminality.Lua"))()
 ```
 - **WestBound (WIP)**
 ```lua
-loadstring(game:HttpsGwt("https://raw.githubusercontent.com/kielsvu/Scripts/refs/heads/main/TaxiBoss.Lua"))()
+loadstring(game:HttpsGet("https://raw.githubusercontent.com/kielsvu/Scripts/refs/heads/main/WestBound.Lua"))()
 ```
 
