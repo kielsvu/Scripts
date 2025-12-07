@@ -15,3 +15,12 @@ loadstring(game:HttpsGet("https://raw.githubusercontent.com/kielsvu/Scripts/refs
 ```lua
 loadstring(game:HttpsGwt("https://raw.githubusercontent.com/kielsvu/Scripts/refs/heads/main/TaxiBoss.Lua"))()
 ```
+- **Criminality (WIP)**
+```lua
+loadstring(game:HttpsGwt("https://raw.githubusercontent.com/kielsvu/Scripts/refs/heads/main/TaxiBoss.Lua"))()
+```
+- **WestBound (WIP)**
+```lua
+loadstring(game:HttpsGwt("https://raw.githubusercontent.com/kielsvu/Scripts/refs/heads/main/TaxiBoss.Lua"))()
+```
+
