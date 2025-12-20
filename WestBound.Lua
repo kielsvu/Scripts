@@ -1,5 +1,4 @@
--- STANDALONE DRAGGABLE FUNCTION TAB UI WITH SMOOTH TOGGLES
-
+--W.I.P
 local Players = game:GetService("Players")
 local TweenService = game:GetService("TweenService")
 local UserInputService = game:GetService("UserInputService")
@@ -24,7 +23,6 @@ local function Tween(inst, props, time)
     TweenService:Create(inst, TweenInfo.new(time, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), props):Play()
 end
 
--- GUI SETUP
 local ScreenGui = Instance.new("ScreenGui")
 ScreenGui.Name = "StandaloneFunctionUI"
 ScreenGui.ResetOnSpawn = false
@@ -59,27 +57,6 @@ TitleLabel.Parent = MainFrame
 
 Tween(TitleLabel, {TextTransparency = 0}, 0.5)
 
--- MAIN FUNCTION WINDOW
-local FunctionWindow = Instance.new("ScrollingFrame")
-FunctionWindow.Size = UDim2.new(1, -20, 1, -40)
-FunctionWindow.Position = UDim2.new(0, 10, 0, 35)
-FunctionWindow.BackgroundColor3 = UI_SETTINGS.MainColor
-FunctionWindow.BorderSizePixel = 0
-FunctionWindow.ScrollBarThickness = 0
-FunctionWindow.Parent = MainFrame
-FunctionWindow.ClipsDescendants = true
-FunctionWindow.CanvasSize = UDim2.new(0, 0, 0, 300)
-
-local FunctionCorner = Instance.new("UICorner")
-FunctionCorner.CornerRadius = UDim.new(0, UI_SETTINGS.CornerRadius)
-FunctionCorner.Parent = FunctionWindow
-
-local FunctionStroke = Instance.new("UIStroke")
-FunctionStroke.Color = UI_SETTINGS.BorderColor
-FunctionStroke.Thickness = 2
-FunctionStroke.Parent = FunctionWindow
-
--- TOGGLE CREATOR
 local function createToggle(name, y, callback)
     local lbl = Instance.new("TextLabel")
     lbl.Size = UDim2.new(0.6,0,0,20)
@@ -91,7 +68,7 @@ local function createToggle(name, y, callback)
     lbl.TextColor3 = UI_SETTINGS.TextColor
     lbl.TextXAlignment = Enum.TextXAlignment.Left
     lbl.TextTransparency = 1
-    lbl.Parent = FunctionWindow
+    lbl.Parent = MainFrame
 
     local toggle = Instance.new("TextButton")
     toggle.Size = UI_SETTINGS.ToggleSize
@@ -99,7 +76,7 @@ local function createToggle(name, y, callback)
     toggle.BackgroundColor3 = UI_SETTINGS.ToggleColor
     toggle.BorderSizePixel = 0
     toggle.Text = ""
-    toggle.Parent = FunctionWindow
+    toggle.Parent = MainFrame
 
     local toggleCorner = Instance.new("UICorner")
     toggleCorner.CornerRadius = UDim.new(0, UI_SETTINGS.ToggleCorner)
@@ -116,8 +93,7 @@ local function createToggle(name, y, callback)
     Tween(toggle, {BackgroundTransparency = 0}, 0.5)
 end
 
--- AUTO ROB SCRIPT TOGGLE (replaces placeholder 1)
-createToggle("Auto Rob Script", 10, function(state)
+createToggle("Auto Rob Script", 50, function(state)
     if state then
         game.StarterGui:SetCore("SendNotification",{Title="Script Activated!",Text="Credits: GarciaScripts!",Duration=5})
         local v0=game.Players.LocalPlayer
@@ -195,7 +171,6 @@ createToggle("Auto Rob Script", 10, function(state)
     end
 end)
 
--- DRAGGING SYSTEM
 local dragging, dragInput, mousePos, framePos = false, nil, nil, nil
 MainFrame.InputBegan:Connect(function(input)
     if input.UserInputType == Enum.UserInputType.MouseButton1 then
