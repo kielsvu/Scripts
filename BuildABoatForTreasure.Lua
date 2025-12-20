@@ -135,7 +135,6 @@ function AutoFarm.Toggle(state)
 	end
 end
 
---// YOUR UI BELOW (UNCHANGED EXCEPT SCROLLING REMOVED)
 local TweenService = game:GetService("TweenService")
 local UserInputService = game:GetService("UserInputService")
 local LocalPlayer = Players.LocalPlayer
@@ -148,7 +147,7 @@ local UI_SETTINGS = {
     WindowHeight = 200,
     CornerRadius = 15,
     Font = Enum.Font.SourceSansBold,
-    ScriptName = "Garcia's Function",
+    ScriptName = "GarciaScripts",
     ToggleColor = Color3.fromRGB(40,40,40),
     ToggleActiveColor = Color3.fromRGB(178,132,255),
     ToggleSize = UDim2.new(0,40,0,20),
