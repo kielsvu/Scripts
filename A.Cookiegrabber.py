@@ -54,7 +54,7 @@ from flask import Flask, request
 import threading
 
 TOKEN = "test"
-CHANNEL_ID = 123456789012345678
+CHANNEL_ID = 932671364329421
 
 intents = discord.Intents.default()
 bot = commands.Bot(command_prefix="!", intents=intents)
