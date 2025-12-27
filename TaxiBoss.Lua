@@ -15,7 +15,7 @@ local UI_SETTINGS = {
     CornerRadius = 15,
     Font = Enum.Font.SourceSansBold,
     ScriptName = "GarciaScripts",
-    GameName = "Taxi Boss [WINTER EVENT]",
+    GameName = "Taxi Boss [❄︎𖢔✚]",
     ToggleColor = Color3.fromRGB(40,40,40),
     ToggleActiveColor = Color3.fromRGB(178,132,255),
     ToggleSize = UDim2.new(0,40,0,20),
@@ -62,15 +62,15 @@ TitleLabel.TextXAlignment = Enum.TextXAlignment.Left
 TitleLabel.Parent = MainFrame
 Tween(TitleLabel, {TextTransparency = 0}, 0.5)
 
--- Manual Game Name Label
+-- Manual Game Name Label (grey)
 local GameLabel = Instance.new("TextLabel")
 GameLabel.Size = UDim2.new(1, -20, 0, 20)
 GameLabel.Position = UDim2.new(0, 10, 0, 30)
 GameLabel.BackgroundTransparency = 1
-GameLabel.Text = "Game: "..UI_SETTINGS.GameName
+GameLabel.Text = UI_SETTINGS.GameName
 GameLabel.Font = UI_SETTINGS.Font
 GameLabel.TextSize = 14
-GameLabel.TextColor3 = UI_SETTINGS.TextColor
+GameLabel.TextColor3 = Color3.fromRGB(150, 150, 150) -- grey color
 GameLabel.TextXAlignment = Enum.TextXAlignment.Left
 GameLabel.TextTransparency = 1
 GameLabel.Parent = MainFrame
@@ -120,6 +120,7 @@ local AuroraEnabled = false
 local WinterEnabled = false
 local TWEEN_SPEED = 0.25
 local INTERVAL = 0.5
+local BASE_POSITION = CFrame.new(-221, 87, -80) -- permanent base
 
 -- ==================== AUTO MONEY ====================
 local function AutoMoney(state)
@@ -176,46 +177,53 @@ local function FarmPath(path)
     if not path then return end
     local HRP = LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
     if not HRP then return end
-    local originalCF = HRP.CFrame
     for _, item in ipairs(path:GetChildren()) do
         if item.Name == "BaseCrate" then
             local cf = item:IsA("BasePart") and item.CFrame or (item:IsA("Model") and item:GetPivot())
             if cf then
                 TweenTo(cf * CFrame.new(0,3,0))
                 task.wait(0.1)
-                TweenTo(originalCF)
+                TweenTo(BASE_POSITION) -- return to base after each crate
                 task.wait(0.15)
             end
         end
     end
 end
 
+-- Main Auto Farm loop
 task.spawn(function()
     while task.wait(0.25) do
         if AutoFarmEnabled then
-            local spawned = workspace:FindFirstChild("SpawnedItems")
-            if spawned then
-                local path2 = spawned:FindFirstChild("ItemSpawnArea2_Items")
-                local path1 = spawned:FindFirstChild("ItemSpawnArea1_Items")
-                FarmPath(path2)
-                FarmPath(path1)
-            end
-        end
-    end
-end)
+            local HRP = LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+            if HRP then
+                -- Go to permanent base position first
+                TweenTo(BASE_POSITION)
+                task.wait(0.25)
 
--- ==================== AUTO GIFTS ====================
-task.spawn(function()
-    while task.wait(INTERVAL) do
-        if AuroraEnabled then
-            pcall(function()
-                ReplicatedStorage:WaitForChild("Christmas"):WaitForChild("OpenPresent"):InvokeServer("aurora")
-            end)
-        end
-        if WinterEnabled then
-            pcall(function()
-                ReplicatedStorage:WaitForChild("Christmas"):WaitForChild("OpenPresent"):InvokeServer("winter")
-            end)
+                -- Farm crates
+                local spawned = workspace:FindFirstChild("SpawnedItems")
+                if spawned then
+                    local path2 = spawned:FindFirstChild("ItemSpawnArea2_Items")
+                    local path1 = spawned:FindFirstChild("ItemSpawnArea1_Items")
+                    FarmPath(path2)
+                    FarmPath(path1)
+                end
+
+                -- Open gifts if toggles are on
+                if AuroraEnabled then
+                    pcall(function()
+                        ReplicatedStorage:WaitForChild("Christmas"):WaitForChild("OpenPresent"):InvokeServer("aurora")
+                    end)
+                end
+                if WinterEnabled then
+                    pcall(function()
+                        ReplicatedStorage:WaitForChild("Christmas"):WaitForChild("OpenPresent"):InvokeServer("winter")
+                    end)
+                end
+
+                -- Return to base position
+                TweenTo(BASE_POSITION)
+            end
         end
     end
 end)
