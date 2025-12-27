@@ -11,11 +11,11 @@ local UI_SETTINGS = {
     BorderColor = Color3.fromRGB(178,132,255),
     TextColor = Color3.fromRGB(255,255,255),
     WindowWidth = 400,
-    WindowHeight = 200, -- original size
+    WindowHeight = 200,
     CornerRadius = 15,
     Font = Enum.Font.SourceSansBold,
     ScriptName = "GarciaScripts",
-    GameName = "Taxi Boss [❄︎𖢔✚]",
+    GameName = "Taxi Boss [WINTER EVENT]",
     ToggleColor = Color3.fromRGB(40,40,40),
     ToggleActiveColor = Color3.fromRGB(178,132,255),
     ToggleSize = UDim2.new(0,40,0,20),
@@ -70,7 +70,7 @@ GameLabel.BackgroundTransparency = 1
 GameLabel.Text = UI_SETTINGS.GameName
 GameLabel.Font = UI_SETTINGS.Font
 GameLabel.TextSize = 14
-GameLabel.TextColor3 = Color3.fromRGB(150, 150, 150) -- grey color
+GameLabel.TextColor3 = Color3.fromRGB(150, 150, 150) -- grey
 GameLabel.TextXAlignment = Enum.TextXAlignment.Left
 GameLabel.TextTransparency = 1
 GameLabel.Parent = MainFrame
@@ -129,14 +129,12 @@ local function AutoMoney(state)
             local plr = LocalPlayer
             local activeQuest = plr.ActiveQuests:FindFirstChildOfClass("StringValue")
             
-            -- Cancel other contract if not the target
             if activeQuest and activeQuest.Name ~= "contractBuildMaterial" then
                 pcall(function()
                     ReplicatedStorage.Quests.Contracts.CancelContract:InvokeServer(activeQuest.Name)
                 end)
             end
 
-            -- Start the contract if not active
             if not plr.ActiveQuests:FindFirstChild("contractBuildMaterial") then
                 pcall(function()
                     ReplicatedStorage.Quests.Contracts.StartContract:InvokeServer("contractBuildMaterial")
@@ -144,14 +142,12 @@ local function AutoMoney(state)
                 repeat task.wait() until plr.ActiveQuests:FindFirstChild("contractBuildMaterial")
             end
 
-            -- Deliver materials
             task.spawn(function()
                 pcall(function()
                     ReplicatedStorage.Quests.DeliveryComplete:InvokeServer("contractMaterial")
                 end)
             end)
 
-            -- Complete contract if value matches
             local contract = plr.ActiveQuests:FindFirstChild("contractBuildMaterial")
             if contract and contract.Value == "!pw5pi3ps2" then
                 pcall(function()
@@ -183,24 +179,21 @@ local function FarmPath(path)
             if cf then
                 TweenTo(cf * CFrame.new(0,3,0))
                 task.wait(0.1)
-                TweenTo(BASE_POSITION) -- return to base after each crate
+                TweenTo(BASE_POSITION)
                 task.wait(0.15)
             end
         end
     end
 end
 
--- Main Auto Farm loop
 task.spawn(function()
     while task.wait(0.25) do
         if AutoFarmEnabled then
             local HRP = LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
             if HRP then
-                -- Go to permanent base position first
                 TweenTo(BASE_POSITION)
                 task.wait(0.25)
 
-                -- Farm crates
                 local spawned = workspace:FindFirstChild("SpawnedItems")
                 if spawned then
                     local path2 = spawned:FindFirstChild("ItemSpawnArea2_Items")
@@ -209,21 +202,26 @@ task.spawn(function()
                     FarmPath(path1)
                 end
 
-                -- Open gifts if toggles are on
-                if AuroraEnabled then
-                    pcall(function()
-                        ReplicatedStorage:WaitForChild("Christmas"):WaitForChild("OpenPresent"):InvokeServer("aurora")
-                    end)
-                end
-                if WinterEnabled then
-                    pcall(function()
-                        ReplicatedStorage:WaitForChild("Christmas"):WaitForChild("OpenPresent"):InvokeServer("winter")
-                    end)
-                end
-
-                -- Return to base position
                 TweenTo(BASE_POSITION)
             end
+        end
+    end
+end)
+
+-- ==================== AUTO GIFTS ====================
+task.spawn(function()
+    while task.wait(0.5) do
+        if AuroraEnabled then
+            pcall(function()
+                local args = {"aurora"}
+                ReplicatedStorage:WaitForChild("Christmas"):WaitForChild("OpenPresent"):InvokeServer(unpack(args))
+            end)
+        end
+        if WinterEnabled then
+            pcall(function()
+                local args = {"winter"}
+                ReplicatedStorage:WaitForChild("Christmas"):WaitForChild("OpenPresent"):InvokeServer(unpack(args))
+            end)
         end
     end
 end)
@@ -232,22 +230,18 @@ end)
 createToggle("Auto Money", 50, function(state)
     AutoMoneyEnabled = state
     AutoMoney(state)
-    print("Auto Money", state and "ON" or "OFF")
 end)
 
 createToggle("Auto Farm", 90, function(state)
     AutoFarmEnabled = state
-    print("Auto Farm", state and "ON" or "OFF")
 end)
 
 createToggle("Aurora Gift Open", 130, function(state)
     AuroraEnabled = state
-    print("Aurora Gift Open", state and "ON" or "OFF")
 end)
 
 createToggle("Winter Gift Open", 170, function(state)
     WinterEnabled = state
-    print("Winter Gift Open", state and "ON" or "OFF")
 end)
 
 -- ==================== DRAGGING SYSTEM ====================
